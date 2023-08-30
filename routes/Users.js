@@ -3,9 +3,9 @@ const express = require("express");
 const router = express.Router();
 
 const bcrypt = require("bcryptjs");
-const sign = require("jsonwebtoken");
+const { sign } = require("jsonwebtoken");
 
-const { PrismaClient } =  require("@prisma/client");
+const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 const { validateToken } = require("../middlewares/AuthMiddleware");
@@ -27,13 +27,13 @@ router.post("/login", async (req, res) => {
           { id: user.id, username: user.username, email: user.email },
           "important"
         );
-        res.json(
-          { message: "User signed in Successfully!" },
-          { email: user.email },
-          { username: user.username },
-          { userId: user.id },
-          { accessToken: accessToken }
-        );
+        res.json({
+          message: "User logged in Successfully!",
+          email: user.email,
+          username: user.username,
+          userId: user.id,
+          accessToken: accessToken,
+        });
       } else {
         res.json("Wrong email/ password!");
       }
