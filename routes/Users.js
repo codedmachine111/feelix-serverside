@@ -82,9 +82,9 @@ router.post("/signup", async (req, res) => {
         password: hash,
       },
     });
-    res.json("User Created Successfully!");
+    res.json({message:"User Created Successfully!"});
   } else {
-    res.json("This email already exits!");
+    res.json({message: "This email already exits!"});
   }
 });
 

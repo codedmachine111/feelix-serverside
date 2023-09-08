@@ -1,16 +1,16 @@
 const express = require("express");
 const router = express.Router();
-
-// const { validateToken } = require("../middlewares/AuthMiddleware");
-
+require('dotenv').config();
 const livekitApi = require("livekit-server-sdk");
+const { validateToken } = require("../middlewares/AuthMiddleware");
 const AccessToken = livekitApi.AccessToken;
 
-router.get("/get-token", async (req, res) => {
+router.get("/get-token", validateToken, async (req, res) => {
   const { roomId, name } = req.query;
+
   const at = new AccessToken(
-    process.env.LIVEKIT_API_KEY,
-    process.env.LIVEKIT_SECRET_KEY,
+    process.env.LIVEKIT_API_KEY,      
+    process.env.LIVEKIT_SECRET_KEY,   
     {
       identity: name,
     }
